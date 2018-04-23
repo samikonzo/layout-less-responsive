@@ -1,0 +1,35 @@
+.container-fixed(@gutter, @grid-gutter-width){
+	margin: auto;
+	padding-left: (@gutter / 2);
+	padding-right: (@gutter / 2);
+}
+
+ .generate-columns-percent(@container-width; @number-cols; @i: 1) when (@i <= @number-cols){
+	
+	.col-@{i}{
+		width: 100 / @number-cols * @i * 1%;
+	}
+
+	.generate-columns-percent(@container-width; @number-cols; @i + 1);
+}
+ 
+
+.generate-columns(@container-width; @number-cols; @i: 1) when (@i <= @number-cols){
+	
+	.col-@{i}{
+		@single-width: @container-width / @number-cols;
+		width:@i * @single-width;
+	}
+
+	.generate-columns(@container-width; @number-cols; @i + 1);
+}
+
+
+.make-grid(@container-width){
+	@media(min-width: @container-width){
+		width: @container-width;
+		
+		.generate-columns-percent(@container-width, @grid-columns);
+	}
+
+}
